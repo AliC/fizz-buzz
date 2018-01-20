@@ -14,9 +14,11 @@ namespace FizzBuzz.Domain
 
         private static string Converter(int arg)
         {
+            bool lucky = arg.ToString().Contains("3");
             bool fizz = arg % 3 == 0;
             bool buzz = arg % 5 == 0;
 
+            if (lucky) return "lucky";
             if (fizz && buzz) return "fizzbuzz";
             if (fizz) return "fizz";
             if (buzz) return "buzz";

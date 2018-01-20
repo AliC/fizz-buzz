@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FizzBuzz.Domain
@@ -9,7 +10,14 @@ namespace FizzBuzz.Domain
         {
             IEnumerable<string> fizzbuzzValues = Enumerable.Range(1, 20).Select(Converter);
 
-            return string.Join(' ', fizzbuzzValues);
+            return string.Join(' ', fizzbuzzValues) + Environment.NewLine + GetReport(fizzbuzzValues);
+        }
+
+        private static string GetReport(IEnumerable<string> fizzbuzzValues)
+        {
+            var counts = fizzbuzzValues.GroupBy(x => int.TryParse(x, out int result) ? "integer" : x);
+
+            return string.Join(Environment.NewLine, counts.Select(x => $"{x.Key}: {x.Count()}"));
         }
 
         private static string Converter(int arg)
